@@ -1,9 +1,10 @@
 from database.crud import get_user_by_bale_id
+from utils.decorators import admin_required
 
 
 def admin_handler(bot):
     @bot.message_handler(func=lambda message: message.text in ["my_account" , "all_shifts" , "search_shifts"])
-    #decoratore ==> @just_admin
+    @admin_required
     def manage_admin(message):
         if message.text == "my_account":
             user = get_user_by_bale_id(message.from_user.id)

@@ -1,4 +1,6 @@
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
+
+
 def role_keyboard():
     markup = InlineKeyboardMarkup()
     admin = InlineKeyboardButton("ادمین" ,
@@ -7,3 +9,12 @@ def role_keyboard():
                                    callback_data="soldier")
     markup.add(admin,soldier)
     return markup
+
+def soldier_panel():
+    markup = ReplyKeyboardMarkup(resize_keyboard=True)
+    my_account = KeyboardButton("وضعیت من ℹ️")
+    booking_shifts = KeyboardButton("انتخاب شیفت")
+    my_shifts = KeyboardButton("مشاهده شیفت های من")
+    markup.add(my_account,booking_shifts , my_shifts)
+    return markup
+

@@ -1,5 +1,5 @@
 from database.crud import get_user_by_bale_id
-from keyboards.keyboards_manage import role_keyboard
+from keyboards.keyboards_manage import role_keyboard, soldier_panel
 
 
 def register(bot):
@@ -11,13 +11,13 @@ def register(bot):
                 bot.send_message(
                     message.chat.id,
                     "پنل انتخاب شیفت برای شما باز شد" ,
-                    #reply_markup = soldier_panel()
+                    reply_markup = soldier_panel()
                 )
             else:
                 bot.send_message(
                     message.chat.id,
                     "خیلی خوش امدی ادمین عزیز" ,
-                    #reply_markup = admin_panel()
+                    reply_markup = admin_panel()
                 )
         else:
             bot.send_message(
