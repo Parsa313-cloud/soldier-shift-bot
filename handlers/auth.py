@@ -4,7 +4,7 @@ from keyboards.keyboards.keyboards_manage import role_keyboard, soldier_panel
 
 def register(bot):
     @bot.message_handler(commands=['start'])
-    def start(message):
+    def register(message):
         user = get_user_by_bale_id(message.from_user.id)
         if user:
             if user["role"] == "soldier":

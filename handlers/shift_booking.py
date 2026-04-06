@@ -5,7 +5,7 @@ from utils.decorators import soldier_required
 def shift_booking(bot):
     @bot.message_handler(commands=['my_shifts' , 'booking shifts' , "my_account"])
     @soldier_required
-    def shift_panel(message):
+    def register(message):
         if message.text == "my_shifts":
             pass
         if message.text == "booking shifts":
