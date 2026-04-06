@@ -1,3 +1,39 @@
+from database.crud import authenticate_soldier,check_authenticate_soldier
+from config import users
+
+
+def authenticate_soldier_test(auth_code, bale_id):
+
+    user = None
+
+    for u in users:
+        if auth_code == u["auth_code"]:
+            user = u
+            break
+
+    if user is None:
+        return False, "کد احراز هویت نامعتبر است."
+
+    if user['bale_id'] is not None:
+        if user['bale_id'] == bale_id:
+            return True, f"شما قبلاً احراز هویت شده‌اید {user['full_name']}."
+        else:
+            return False, "این کد قبلاً توسط شخص دیگری فعال شده است!"
+
+    user['bale_id'] = bale_id
+
+    return True, f"خوش آمدید {user['full_name']}! احراز هویت شما با موفقیت انجام شد."
+
+
+def check_authenticate_soldier_test(bale_id):
+
+
+
+    for user in users:
+        if user["bale_id"] == bale_id:
+            return True
+
+    return False
 
 def register(bot):
     @bot.message_handler(func=func,content_types=[

@@ -1,20 +1,19 @@
 from database.connection import get_connection
 import sqlite3
 
-
+# ok with mySQL
 def get_user_by_bale_id(bale_id):
     conn = get_connection()
     try:
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM users WHERE bale_id = ?", (bale_id,))
-        user = cursor.fetchone()
-
-        if user is not None:
-            return user
-        else:
-            return None
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT * FROM users WHERE bale_id = %s LIMIT 1",
+            (bale_id,)
+        )
+        return cursor.fetchone()
     finally:
         conn.close()
+
 
 
 
