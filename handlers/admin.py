@@ -5,7 +5,7 @@ from utils.decorators import admin_required
 def admin_handler(bot):
     @bot.message_handler(func=lambda message: message.text in ["my_account" , "all_shifts" , "search_shifts"])
     @admin_required
-    def manage_admin(message):
+    def register(message):
         if message.text == "my_account":
             user = get_user_by_bale_id(message.from_user.id)
             bot.send_message(message.chat.id,

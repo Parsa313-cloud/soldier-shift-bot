@@ -1,6 +1,6 @@
 import json
 from database.connection import get_connection
-from database.crud import get_max_shift
+
 
 user_shifts_cache = {}
 day_reservations_cache = {day: [] for day in range(1, 32)}
