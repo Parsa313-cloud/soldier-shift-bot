@@ -1,6 +1,7 @@
 from database.connection import get_connection
 import sqlite3
 
+
 def get_user_by_bale_id(bale_id):
     conn = get_connection()
     try:
@@ -14,6 +15,9 @@ def get_user_by_bale_id(bale_id):
             return False , None
     finally:
         conn.close()
+
+
+
 
 def authenticate_soldier(auth_code , bale_id):
     conn = get_connection()

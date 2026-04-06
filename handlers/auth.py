@@ -1,5 +1,5 @@
 from database.crud import get_user_by_bale_id
-from keyboards.keyboards_manage import role_keyboard, soldier_panel
+from keyboards.keyboards.keyboards_manage import role_keyboard, soldier_panel
 
 
 def register(bot):
