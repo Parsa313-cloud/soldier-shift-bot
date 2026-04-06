@@ -1,8 +1,9 @@
 import telebot
+
+import config
 from config import API_TOKEN
 import logging
 from telebot import apihelper
-
 
 #this file return bot variable which is connected with api from telebot
 

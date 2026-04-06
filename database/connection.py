@@ -1,9 +1,12 @@
-import sqlite3
+import mysql.connector
 
-DATABASE_PATH = "database.db"
+DB_CONFIG = {
+    "host": "localhost",
+    "user": "root",
+    "password": "your_password",
+    "database": "your_database_name",
+}
 
 def get_connection():
-    conn = sqlite3.connect(DATABASE_PATH, check_same_thread=False)
-    conn.execute("PRAGMA foreign_keys = ON")
-    conn.row_factory = sqlite3.Row
+    conn = mysql.connector.connect(**DB_CONFIG)
     return conn
