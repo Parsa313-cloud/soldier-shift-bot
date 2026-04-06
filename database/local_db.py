@@ -1,8 +1,10 @@
 import json
 from database.connection import get_connection
+from database.crud import get_max_shift
 
 user_shifts_cache = {}
 day_reservations_cache = {day: [] for day in range(1, 32)}
+user_max_shifts_cache = {}
 
 
 def load_data_on_startup():
@@ -15,7 +17,7 @@ def load_data_on_startup():
 
     try:
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT auth_code, shift FROM users WHERE shifts IS NOT NULL")
+        cursor.execute("SELECT auth_code, shift, max_shifts FROM users WHERE shifts IS NOT NULL")
         all_rows = cursor.fetchall()
         for row in all_rows:
             auth_code = row["auth_code"]
@@ -28,6 +30,7 @@ def load_data_on_startup():
             else:
                 shifts_list = shifts_data or []
             user_shifts_cache[auth_code] = shifts_list
+            user_max_shifts_cache[auth_code] = row['max_shifts'] or 0
             for day in shifts_list:
                 if day not in day_reservations_cache:
                     day_reservations_cache[day] = []
@@ -66,3 +69,4 @@ def update_user_shifts_in_db(auth_code, new_shifts_list):
             cursor.close()
         if conn and conn.is_connected():
             conn.close()
+

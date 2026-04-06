@@ -11,6 +11,7 @@ def create_tables():
                 auth_code VARCHAR(20) UNIQUE NOT NULL,
                 bale_id BIGINT UNIQUE,
                 role VARCHAR(20) DEFAULT 'soldier',
+                max_shifts INT DEFAULT 0,
                 shift Json 
             )
         """)

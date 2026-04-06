@@ -3,6 +3,7 @@ import mysql.connector
 
 
 def get_user_by_bale_id(bale_id):
+    cursor = None
     conn = get_connection()
     try:
         cursor = conn.cursor(dictionary=True)
@@ -19,6 +20,7 @@ def get_user_by_bale_id(bale_id):
 
 
 def authenticate_soldier(auth_code, bale_id):
+    cursor = None
     conn = get_connection()
     try:
         cursor = conn.cursor(dictionary=True)
@@ -46,6 +48,7 @@ def authenticate_soldier(auth_code, bale_id):
 
 
 def add_shift(auth_code, day):
+    cursor = None
     if not (1 <= day <= 31):
         return False, "روز نامعتبر است (باید بین ۱ و ۳۱ باشد)."
 
@@ -79,30 +82,3 @@ def add_shift(auth_code, day):
         cursor.close()
         conn.close()
 
-def is_day_full(day_number):
-    shift_count = get_shift_count_for_day(day_number)
-    return shift_count >= 4
-
-
-def get_shift_count_for_day(day):
-    conn = get_connection()
-    try:
-        cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM shifts WHERE day_number = %s", (day,))
-        shift_count = cursor.fetchone()[0]
-        return shift_count
-    finally:
-        cursor.close()
-        conn.close()
-
-
-def get_shift_count_for_user(auth_code):
-    conn = get_connection()
-    try:
-        cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM shifts WHERE auth_code = %s", (auth_code,))
-        shift_count = cursor.fetchone()[0]
-        return shift_count
-    finally:
-        cursor.close()
-        conn.close()
