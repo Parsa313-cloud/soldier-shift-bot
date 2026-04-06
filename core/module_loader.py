@@ -1,9 +1,9 @@
 
-from handlers import test
+from handlers import test,CheckLogin
 
 
 def load_modules(bot):
-    module_lists=[test
+    module_lists=[CheckLogin
 
 
 

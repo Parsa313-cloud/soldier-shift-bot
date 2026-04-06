@@ -1,12 +1,11 @@
 from database.crud import get_user_by_bale_id
-from keyboards.keyboards.keyboards_manage import role_keyboard, soldier_panel
-
+from MenuHandler.keyboards_manage import soldier_panel
 
 def register(bot):
     @bot.message_handler(commands=['start'])
     def register(message):
         user = get_user_by_bale_id(message.from_user.id)
-        if user:
+        if user!=None:
             if user["role"] == "soldier":
                 bot.send_message(
                     message.chat.id,
@@ -17,7 +16,7 @@ def register(bot):
                 bot.send_message(
                     message.chat.id,
                     "خیلی خوش امدی ادمین عزیز" ,
-                    reply_markup = admin_panel()
+                    reply_markup = None
                 )
         else:
             bot.send_message(

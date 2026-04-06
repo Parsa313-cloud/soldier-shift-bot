@@ -10,36 +10,48 @@ def get_user_by_bale_id(bale_id):
         user = cursor.fetchone()
 
         if user is not None:
-            return True , user
+            return user
         else:
-            return False , None
+            return None
     finally:
         conn.close()
 
 
 
-
-def authenticate_soldier(auth_code , bale_id):
+# ok with mySQL
+def authenticate_soldier(auth_code, bale_id):
     conn = get_connection()
     try:
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM users WHERE auth_code = ?", (auth_code,))
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT full_name, bale_id FROM users WHERE auth_code = %s", (auth_code,))
         user = cursor.fetchone()
         if user is None:
-            return False , "کد احراز هویت نامعتبر است."
-        if user['bale_id'] is not None:
-            if user['bale_id'] == bale_id:
-                return True ,  f"شما قبلاً احراز هویت شده‌اید {user['full_name']}."
-            else:
-                return False ,  "این کد قبلاً توسط شخص دیگری (با اکانت دیگری) فعال شده است!"
+            return False, "کد احراز هویت نامعتبر است."
+        if user["bale_id"] is not None:
+            if user["bale_id"] == bale_id:
+                return True, f"شما قبلاً احراز هویت شده‌اید {user['full_name']}."
+            return False, "این کد قبلاً توسط شخص دیگری فعال شده است!"
         cursor.execute(
-            "UPDATE users SET bale_id = ? WHERE auth_code = ?",
+            "UPDATE users SET bale_id = %s WHERE auth_code = %s",
             (bale_id, auth_code)
         )
         conn.commit()
-        return True , f"خوش آمدید {user['full_name']}! احراز هویت شما با موفقیت انجام شد."
+        return True, f"خوش آمدید {user['full_name']}! احراز هویت شما با موفقیت انجام شد.\n/start"
     finally:
         conn.close()
+
+
+# ok with mySQL
+def check_authenticate_soldier(bale_id):
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT 1 FROM users WHERE bale_id = %s LIMIT 1", (bale_id,))
+        return cursor.fetchone() is not None
+    finally:
+        conn.close()
+
+
 
 
 def add_shift(auth_code, day):

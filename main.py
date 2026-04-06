@@ -2,11 +2,13 @@ from core.bot_instant import logger,get_bot
 import flask
 from flask import Flask
 from core.module_loader import load_modules
+import telebot
 
 bot =get_bot()
+
+
+
 load_modules(bot)
-
-
 
 
 
