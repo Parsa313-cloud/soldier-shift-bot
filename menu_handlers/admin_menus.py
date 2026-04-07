@@ -7,8 +7,9 @@ def admin_panel():
     markup = ReplyKeyboardMarkup()
     my_account = KeyboardButton("وضعیت من ℹ️")
     all_shifts = KeyboardButton("مشاهده تمام شیفت ها")
+    see_exel = KeyboardButton("📥 دریافت فایل اکسل شیفت‌ها")
     search_shifts = KeyboardButton("جست و جوی شیفت ها")
-    markup.add(my_account, all_shifts, search_shifts)
+    markup.add(my_account, all_shifts, search_shifts , see_exel)
     return markup
 
 def search_panel():

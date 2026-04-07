@@ -4,6 +4,7 @@ from database.local_db import user_names_cache
 from menu_handlers.admin_menus import all_soldier_names, search_panel
 from utils.decorators import admin_required
 from config import ADMIN_DICTIONARY
+from utils.excel_generator import generate_shifts_excel
 
 
 def register(bot):
@@ -42,6 +43,22 @@ def register(bot):
                 "🔍 لطفا نوع جستجوی خود را انتخاب کنید:\n\nشما می‌توانید شیفت‌های یک سرباز خاص را بررسی کنید یا مشاهده کنید در یک روز مشخص چه کسانی شیفت دارند.",
                 reply_markup=search_panel()
             )
+        elif message.text == ADMIN_DICTIONARY["see_exel"]:
+            bot.send_message(
+                message.chat.id,"در حال درست کردن فایل اکسل رزرو شیفت ها..." )
+            bot.send_chat_action(message.chat.id, 'upload_document')
+
+            try:
+                excel_path = generate_shifts_excel()
+                with open(excel_path, 'rb') as excel_file:
+                    bot.send_document(
+                        message.chat.id,
+                        excel_file,
+                        caption="📊 فایل اکسل شیفت‌های این ماه خدمت شما."
+                    )
+            except Exception as e:
+                bot.send_message(message.chat.id, "❌ خطایی در تولید فایل اکسل رخ داد.")
+                print(f"Excel Export Error: {e}")
 
     @bot.callback_query_handler(func=lambda call: call.data in ["search_day", "search_soldier"])
     @admin_required
