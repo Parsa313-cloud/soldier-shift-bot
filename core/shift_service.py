@@ -1,8 +1,9 @@
 import threading
 
 from config import MAX_CAPACITY_PER_DAY
+from database.crud import get_user_by_auth_code
 from database.local_db import day_reservations_cache, user_shifts_cache, update_user_shifts_in_db, \
-    user_max_shifts_cache
+    user_max_shifts_cache, user_names_cache
 
 shift_lock = threading.Lock()
 
@@ -71,3 +72,36 @@ def delete_shift_for_soldier(auth_code, day):
             return False, "❌ خطای سیستمی! امکان لغو شیفت در حال حاضر وجود ندارد."
 
 
+def get_all_shifts():
+    with shift_lock:
+        shifts_copy = {day: list(codes) for day, codes in day_reservations_cache.items()}
+
+    shift_result = {}
+    for day, auth_codes in shifts_copy.items():
+        if not auth_codes:
+            continue
+
+        searched_shifts = []
+        for auth_code in auth_codes:
+            name = user_names_cache.get(auth_code, f"ناشناس ({auth_code})")
+            searched_shifts.append(name)
+
+        shift_result[day] = searched_shifts
+    return shift_result
+
+
+def search_day_shift(day):
+    with shift_lock:
+        auth_codes_in_day = day_reservations_cache.get(day, [])
+
+    searched_shifts = []
+    for auth_code in auth_codes_in_day:
+        name = user_names_cache.get(auth_code, f"ناشناس{auth_code})")
+        searched_shifts.append(name)
+
+    return searched_shifts
+
+
+def search_solder_shift(auth_code):
+    with shift_lock:
+        return user_shifts_cache.get(auth_code, []).copy()

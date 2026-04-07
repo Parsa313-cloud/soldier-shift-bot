@@ -16,6 +16,21 @@ def get_user_by_bale_id(bale_id):
         cursor.close()
         conn.close()
 
+
+def get_user_by_auth_code(auth_code):
+    cursor = None
+    conn = get_connection()
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT * FROM users WHERE auth_code = %s LIMIT 1",
+            (auth_code,)
+        )
+        return cursor.fetchone()
+    finally:
+        cursor.close()
+        conn.close()
+
 # ok with mySQL
 def authenticate_soldier(auth_code, bale_id):
     cursor = None

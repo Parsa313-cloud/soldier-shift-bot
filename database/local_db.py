@@ -5,7 +5,7 @@ from database.connection import get_connection
 user_shifts_cache = {}
 day_reservations_cache = {day: [] for day in range(1, 32)}
 user_max_shifts_cache = {}
-
+user_names_cache = {}
 
 def load_data_on_startup():
     conn = None
@@ -31,6 +31,7 @@ def load_data_on_startup():
                 shifts_list = shifts_data or []
             user_shifts_cache[auth_code] = shifts_list
             user_max_shifts_cache[auth_code] = row['max_shifts'] or 0
+            user_names_cache[auth_code] = row['full_name']
             for day in shifts_list:
                 if day not in day_reservations_cache:
                     day_reservations_cache[day] = []

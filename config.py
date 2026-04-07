@@ -9,6 +9,11 @@ CALLBACK_DICTIONOARY={
     "My Status": "وضعیت من ℹ️",
     "See My Shifts":"مشاهده شیفت های من"
 }
+ADMIN_DICTIONARY={
+    "my_account":"وضعیت من ℹ️",
+    "all_shifts":"مشاهده تمام شیفت ها",
+    "search_shifts":"جست و جوی شیفت ها"
+}
 users = [{
         "id": 1,
         "full_name": "Ali Rezaei",
