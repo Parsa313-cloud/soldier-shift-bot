@@ -1,5 +1,5 @@
 
-from handlers import CheckLogin,auth,SoldierStatus,CheckMyShift,ShiftChoosing
+from handlers import check_login,auth,soldier_status,check_my_shift,shift_choosing
 
 
 def load_modules(bot):

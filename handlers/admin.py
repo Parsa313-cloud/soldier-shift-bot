@@ -1,4 +1,4 @@
-from core.shift_service import get_all_shifts, search_day_shift, search_solder_shift
+from core.shift_service import get_all_shifts, search_day_shift, search_soldier_shift
 from database.crud import get_user_by_bale_id
 from database.local_db import user_names_cache
 from menu_handlers.admin_menus import all_soldier_names, search_panel
@@ -67,7 +67,7 @@ def register(bot):
 
         auth_code_chosen = call.data.split("_")[1]
 
-        searched_shifts = search_solder_shift(auth_code_chosen)
+        searched_shifts = search_soldier_shift(auth_code_chosen)
         full_name = user_names_cache.get(auth_code_chosen, "ناشناس")
 
         if searched_shifts:

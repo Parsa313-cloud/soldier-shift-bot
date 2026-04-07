@@ -102,6 +102,6 @@ def search_day_shift(day):
     return searched_shifts
 
 
-def search_solder_shift(auth_code):
+def search_soldier_shift(auth_code):
     with shift_lock:
         return user_shifts_cache.get(auth_code, []).copy()

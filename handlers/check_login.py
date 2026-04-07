@@ -36,21 +36,7 @@ def check_authenticate_soldier_test(bale_id):
     return False
 
 def register(bot):
-    @bot.message_handler(func=func,content_types=[
-    "text",
-    "photo",
-    "video",
-    "document",
-    "audio",
-    "voice",
-    "video_note",
-    "animation",
-    "sticker",
-    "location",
-    "contact",
-    "venue",
-    "dice",
-    "poll"])
+    @bot.message_handler(func=func,content_types=['any'])
     def login(message):
         bot.send_message(chat_id=message.chat.id, text="""درود و وقت بخیر
 لطفا ابتدا جهت استفاده از امکانات ربات، لاگین کنید.
