@@ -1,5 +1,5 @@
 from config import users
-
+from menu_handlers.keyboards_manage import soldier_panel
 def get_user_by_bale_id_test(bale_id):
 
     for user in users:
@@ -16,7 +16,7 @@ def register(bot):
             bot.send_message(
                 message.chat.id,
                 "پنل انتخاب شیفت برای شما باز شد",
-                #reply_markup=soldier_panel()
+                reply_markup=soldier_panel()
             )
         else:
             bot.send_message(
