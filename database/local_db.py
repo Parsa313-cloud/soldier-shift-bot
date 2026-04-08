@@ -1,6 +1,6 @@
 import json
 from database.connection import get_connection
-
+from core.bot import logger
 
 user_shifts_cache = {}
 day_reservations_cache = {day: [] for day in range(1, 32)}
@@ -14,7 +14,7 @@ def load_data_on_startup():
     cursor = None
     conn = get_connection()
     if not conn:
-        print("خطا: اتصال به دیتابیس برقرار نشد.")
+        logger.info("خطا: اتصال به دیتابیس برقرار نشد.")
         return
 
     try:

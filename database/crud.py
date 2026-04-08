@@ -116,5 +116,4 @@ def get_current_user(bale_id):
     if user:
         logged_in_users_cache[bale_id] = user
         return user
-
     return None
