@@ -1,3 +1,4 @@
+from core.shift_service import get_max_soldier_shift
 from database.connection import get_connection
 import mysql.connector
 
