@@ -1,5 +1,5 @@
 from config import CALLBACK_DICTIONARY
-from database.crud import get_user_by_bale_id
+from database.db_operations import get_user_by_bale_id
 
 
 def register(bot):

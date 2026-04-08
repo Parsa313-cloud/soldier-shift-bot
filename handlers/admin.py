@@ -1,5 +1,5 @@
 from core.shift_service import get_all_shifts, search_day_shift, search_soldier_shift
-from database.crud import get_user_by_bale_id
+from database.db_operations import get_user_by_bale_id
 from database.local_db import user_names_cache
 from menu_handlers.admin_menus import all_soldier_names, search_panel
 from utils.decorators import admin_required

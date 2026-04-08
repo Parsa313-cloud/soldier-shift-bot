@@ -1,6 +1,6 @@
 from config import CALLBACK_DICTIONARY
 from core.shift_service import get_max_soldier_shift, reserve_shift_for_soldier
-from database.crud import get_user_by_bale_id
+from database.db_operations import get_user_by_bale_id
 from menu_handlers.calendars import days_status_menu
 
 

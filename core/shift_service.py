@@ -1,7 +1,7 @@
 import threading
 
 from config import MAX_CAPACITY_PER_DAY
-from database.crud import get_user_by_bale_id
+from database.db_operations import get_user_by_bale_id
 from database.local_db import day_reservations_cache, user_shifts_cache, update_user_shifts_in_db, \
     user_max_shifts_cache, user_names_cache
 

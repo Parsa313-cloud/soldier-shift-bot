@@ -1,6 +1,6 @@
 from functools import wraps
 
-from database.crud import get_user_by_bale_id
+from database.db_operations import get_user_by_bale_id
 
 
 def admin_required(func):

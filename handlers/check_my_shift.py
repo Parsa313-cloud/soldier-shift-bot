@@ -1,6 +1,6 @@
 from config import CALLBACK_DICTIONARY
 from database.local_db import user_shifts_cache
-from database.crud import get_current_user
+from database.db_operations import get_current_user
 def register(bot):
     @bot.message_handler(func=lambda message: message.text == CALLBACK_DICTIONARY["See My Shifts"])
     def my_status(message):
