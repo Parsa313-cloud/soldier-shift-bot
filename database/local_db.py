@@ -6,6 +6,8 @@ user_shifts_cache = {}
 day_reservations_cache = {day: [] for day in range(1, 32)}
 user_max_shifts_cache = {}
 user_names_cache = {}
+logged_in_users_cache = {}
+
 
 def load_data_on_startup():
     conn = None
@@ -17,11 +19,12 @@ def load_data_on_startup():
 
     try:
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT auth_code, shift, max_shifts FROM users WHERE shifts IS NOT NULL")
+        cursor.execute("SELECT auth_code, shift, bale_id, max_shifts FROM users WHERE shifts IS NOT NULL")
         all_rows = cursor.fetchall()
         for row in all_rows:
             auth_code = row["auth_code"]
             shifts_data = row["shift"]
+            bale_id = row["bale_id"]
             if isinstance(shifts_data, str):
                 try:
                     shifts_list = json.loads(shifts_data)
@@ -32,6 +35,7 @@ def load_data_on_startup():
             user_shifts_cache[auth_code] = shifts_list
             user_max_shifts_cache[auth_code] = row['max_shifts'] or 0
             user_names_cache[auth_code] = row['full_name']
+            logged_in_users_cache[bale_id] = row
             for day in shifts_list:
                 if day not in day_reservations_cache:
                     day_reservations_cache[day] = []

@@ -1,6 +1,9 @@
 from database.connection import get_connection
 import mysql.connector
 
+from database.local_db import logged_in_users_cache
+
+
 # ok with mySQL
 def get_user_by_bale_id(bale_id):
     cursor = None
@@ -51,7 +54,7 @@ def authenticate_soldier(auth_code, bale_id):
             (bale_id, auth_code)
         )
         conn.commit()
-        return True, f"خوش آمدید {user['full_name']}! احراز هویت شما با موفقیت انجام شد.\n/start"
+        return True, f"خوش آمدید {user['full_name']}! احراز هویت شما با موفقیت انجام شد.\n"
     finally:
         cursor.close()
         conn.close()
@@ -105,3 +108,13 @@ def add_shift(auth_code, day):
         cursor.close()
         conn.close()
 
+
+def get_current_user(bale_id):
+    if bale_id in logged_in_users_cache:
+        return logged_in_users_cache[bale_id]
+    user = get_user_by_bale_id(bale_id)
+    if user:
+        logged_in_users_cache[bale_id] = user
+        return user
+
+    return None
