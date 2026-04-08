@@ -1,12 +1,12 @@
-from config import CALLBACK_DICTIONOARY as dict
-from database.local_db import user_shifts_cache,user_max_shifts_cache
+from config import CALLBACK_DICTIONARY
+from database.local_db import user_shifts_cache
 from database.crud import get_current_user
 def register(bot):
-    @bot.message_handler(func=lambda message:message.text==dict["See My Shifts"])
-    def MyStatus(message):
+    @bot.message_handler(func=lambda message: message.text == CALLBACK_DICTIONARY["See My Shifts"])
+    def my_status(message):
         #check if soldier has set any shift
         user = get_current_user(message.from_user.id)
-        if user==None:
+        if user is None:
             error_text = f"❌ <b>خطا در احراز هویت:</b>🔄 لطفاً دوباره تلاش کنید."
             bot.send_message(message.from_user.id, error_text,parse_mode='HTML')
             return
