@@ -1,7 +1,7 @@
 import threading
 
 from config import MAX_CAPACITY_PER_DAY
-from database.crud import get_user_by_auth_code
+from database.crud import get_user_by_bale_id
 from database.local_db import day_reservations_cache, user_shifts_cache, update_user_shifts_in_db, \
     user_max_shifts_cache, user_names_cache
 
@@ -32,11 +32,10 @@ def reserve_shift_for_soldier(auth_code, day):
         if is_day_full(day):
             return False, "❌ ظرفیت این روز تکمیل شده است."
 
-        current_shifts = user_shifts_cache.get(auth_code, [])
-        if day in current_shifts:
+        if day in user_shifts:
             return False, "⚠️ شما قبلاً این روز را رزرو کرده‌اید."
 
-        new_shifts = current_shifts.copy()
+        new_shifts = user_shifts.copy()
         new_shifts.append(day)
 
         db_success = update_user_shifts_in_db(auth_code, new_shifts)
@@ -48,7 +47,7 @@ def reserve_shift_for_soldier(auth_code, day):
                 day_reservations_cache[day] = []
             day_reservations_cache[day].append(auth_code)
 
-            return True, "✅ شیفت شما با موفقیت رزرو شد."
+            return True, f"✅ شیفت شما در روز {day} با موفقیت رزرو شد."
         else:
             return False, "❌ خطای سیستمی! امکان ثبت در دیتابیس وجود ندارد."
 
@@ -105,3 +104,10 @@ def search_day_shift(day):
 def search_soldier_shift(auth_code):
     with shift_lock:
         return user_shifts_cache.get(auth_code, []).copy()
+
+
+def get_max_soldier_shift(bale_id):
+    user = get_user_by_bale_id(bale_id)
+    if not user:
+        return 0
+    return user.get("max_shifts", 0)

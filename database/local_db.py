@@ -1,6 +1,8 @@
 import json
+
+from core.bot_instant import logger
 from database.connection import get_connection
-from core.bot import logger
+
 
 user_shifts_cache = {}
 day_reservations_cache = {day: [] for day in range(1, 32)}

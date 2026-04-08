@@ -82,9 +82,12 @@ def add_shift(auth_code, day):
     conn.autocommit = False
     try:
         cursor = conn.cursor()
+        if get_max_soldier_shift(auth_code):
+            conn.rollback()
+            return False, "شما تمام شیفت های خود را ثبت کرده اید"
+
         cursor.execute("SELECT COUNT(*) FROM shifts WHERE day_number = %s FOR UPDATE", (day,))
         shift_count = cursor.fetchone()[0]
-
         if shift_count >= 4:
             conn.rollback()
             return False, "ظرفیت شیفت‌های این روز تکمیل شده است (حداکثر ۴ سرباز)."
@@ -117,3 +120,4 @@ def get_current_user(bale_id):
         logged_in_users_cache[bale_id] = user
         return user
     return None
+
