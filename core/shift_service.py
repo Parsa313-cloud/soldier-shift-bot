@@ -66,7 +66,7 @@ def delete_shift_for_soldier(auth_code, day):
             user_shifts_cache[auth_code] = new_shifts
             if day in day_reservations_cache and auth_code in day_reservations_cache[day]:
                 day_reservations_cache[day].remove(auth_code)
-            return True, "✅ شیفت شما با موفقیت لغو شد."
+            return True, f"✅ شیفت شما در روز {day} با موفقیت لغو شد."
         else:
             return False, "❌ خطای سیستمی! امکان لغو شیفت در حال حاضر وجود ندارد."
 

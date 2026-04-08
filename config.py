@@ -6,6 +6,7 @@ API_URL="https://tapi.bale.ai/bot{0}/{1}"
 MAX_CAPACITY_PER_DAY=4
 CALLBACK_DICTIONARY={
     "choose shift":"انتخاب شیفت",
+    "delete shift":"حذف شیفت",
     "My Status": "وضعیت من ℹ️",
     "See My Shifts":"مشاهده شیفت های من"
 }

@@ -16,3 +16,11 @@ def days_status_menu():
 
     markup.add(*buttons)
     return markup
+
+
+def day_reservations_menu(days):
+    markup = InlineKeyboardMarkup()
+    for day in days:
+        markup.add(InlineKeyboardButton(f"روز {day}", callback_data=f"delete_{day}"))
+    return markup
+
