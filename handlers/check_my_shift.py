@@ -7,24 +7,23 @@ def register(bot):
         #check if soldier has set any shift
         user = get_current_user(message.from_user.id)
         if user==None:
-            error_text = f"❌ <b>خطا در احراز هویت:</b>\n{response_text}\n\n🔄 لطفاً دوباره تلاش کنید."
+            error_text = f"❌ <b>خطا در احراز هویت:</b>🔄 لطفاً دوباره تلاش کنید."
             bot.send_message(message.from_user.id, error_text,parse_mode='HTML')
             return
-        user_auth_code=get_current_user(message.from_user.id)["auth_code"]
+        user_auth_code=user["auth_code"]
         shifts = user_shifts_cache.get(user_auth_code)
         text= make_message_shift(shifts)
         bot.reply_to(message,text)
         return
 def make_message_shift(shifts):
-    shift_count = len(shifts)
-    if shift_count == 0:
-        return "سرباز گرامی، شیفتی برای شما تاکنون ثبت نشده، جهت ثبت شیفت به منو انتخاب شیف مراجعه کنید."
-    elif shift_count==1:
-        return  f"تنها شیفت شما در تاریخ {shifts[0]}ام ثبت شده است."
-    else:
-        message = "شیفت های رزرو شده شما در روز های "
-        while shift_count > 2:
-            message+= f"{shifts[shifts_count-1]}ام ، "
-            shift_count -= 1
-        message += f"{shifts[shift_count-2]}ام و {shifts[shift_count-1]}ام ثبت شده است."
-        return message
+    if not shifts:
+        return "سرباز گرامی، تاکنون شیفتی برای شما ثبت نشده است. برای ثبت شیفت به منوی «انتخاب شیفت» مراجعه کنید."
+    shifts = sorted(set(shifts))
+    if len(shifts) == 1:
+        return f"تنها شیفت شما در تاریخ {shifts[0]}ام ثبت شده است."
+    if len(shifts) == 2:
+        return f"شیفت‌های شما در تاریخ {shifts[0]}ام و {shifts[1]}ام ثبت شده است."
+    days_text = "، ".join(f"{d}ام" for d in shifts[:-1])
+    days_text += f" و {shifts[-1]}ام"
+    return f"شیفت‌های رزرو شده شما در روزهای {days_text} ثبت شده است."
+
