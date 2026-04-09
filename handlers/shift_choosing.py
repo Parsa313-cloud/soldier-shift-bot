@@ -7,12 +7,13 @@ from menu_handlers.calendars import days_status_menu
 def register(bot):
     @bot.message_handler(func=lambda message: message.text == CALLBACK_DICTIONARY["choose shift"])
     def shift_reserve(message):
+
         max_shifts = get_max_soldier_shift(message.chat.id)
 
         bot.send_message(
             message.chat.id,
             f"سقف مجاز شما: {max_shifts} شیفت\n\nبرای انتخاب رزرو روی روز مورد نظر خود بزنید. روزهایی که 🔒 را دارند شیفت‌ها در آن روز پر شده است.",
-            reply_markup=days_status_menu()
+            reply_markup=days_status_menu(message.from_user.id)
         )
     @bot.callback_query_handler(func=lambda call: call.data.startswith("day_"))
     def reserve_day(call):
@@ -29,6 +30,6 @@ def register(bot):
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
             text=response_message,
-            reply_markup=days_status_menu(),
-            parse_mode='HTML'
+            reply_markup=days_status_menu(call.from_user.id),
+            parse_mode="HTML"
         )

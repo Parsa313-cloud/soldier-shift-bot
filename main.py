@@ -3,9 +3,13 @@ import flask
 from flask import Flask
 from core.module_loader import load_modules
 import telebot
+from core.bot_instant import logger
+import logging
 from init_db import populate_database
 from database.local_db import load_data_on_startup
-
+from database.db_operations import reset_db
+logger.setLevel(logging.DEBUG)
+#reset_db()
 populate_database()
 load_data_on_startup()
 bot =get_bot()

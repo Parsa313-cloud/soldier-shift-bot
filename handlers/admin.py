@@ -8,9 +8,10 @@ from utils.excel_generator import generate_shifts_excel
 
 
 def register(bot):
-    @bot.message_handler(func=lambda message: message.text in ADMIN_DICTIONARY.values())
     @admin_required
+    @bot.message_handler(func=lambda message: message.text in ADMIN_DICTIONARY.values())
     def admin_handler(message):
+
         if message.text == ADMIN_DICTIONARY["my_account"]:
             bot.send_chat_action(message.chat.id, 'typing')
             user = get_user_by_bale_id(message.from_user.id)

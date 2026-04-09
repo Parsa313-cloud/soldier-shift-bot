@@ -129,3 +129,14 @@ def get_current_user(bale_id):
         return user
     return None
 
+def reset_db():
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("DROP TABLE IF EXISTS users")
+        conn.commit()
+        return True
+    except mysql.connector.errors.IntegrityError:
+        print("eheeeeeeb")
+
+

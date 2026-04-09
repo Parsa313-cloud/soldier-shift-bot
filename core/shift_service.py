@@ -1,14 +1,14 @@
 import threading
 
 from config import MAX_CAPACITY_PER_DAY
-from database.db_operations import get_user_by_bale_id
+from database.db_operations import get_user_by_bale_id,logged_in_users_cache
 from database.local_db import day_reservations_cache, user_shifts_cache, update_user_shifts_in_db, \
     user_max_shifts_cache, user_names_cache
-
+from core.bot_instant import logger
 shift_lock = threading.Lock()
 
 def is_day_full(day):
-    if day_reservations_cache.get(day):
+    if day_reservations_cache.get(int(day)):
         return len(day_reservations_cache[day]) >= MAX_CAPACITY_PER_DAY
     else:
         return False
@@ -54,13 +54,13 @@ def reserve_shift_for_soldier(auth_code, day):
 
 def delete_shift_for_soldier(auth_code, day):
     with shift_lock:
-        user_shifts = user_shifts_cache.get(auth_code, [])
-        if day not in user_shifts:
+        user_shifts = user_shifts_cache.get(auth_code)
+        if int(day) not in user_shifts:
             return False, "⚠️ شما در این روز شیفتی ندارید."
 
         new_shifts = user_shifts.copy()
-        new_shifts.remove(day)
-
+        day= int(day)
+        new_shifts.remove(int(day))
         db_success = update_user_shifts_in_db(auth_code, new_shifts)
         if db_success:
             user_shifts_cache[auth_code] = new_shifts

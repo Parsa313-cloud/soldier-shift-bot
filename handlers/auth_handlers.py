@@ -7,6 +7,7 @@ def register(bot):
 
     @bot.message_handler(func=lambda message: get_current_user(message.from_user.id) is None)
     def ask_for_login(message):
+
         text = (
             "👋 *درود و وقت بخیر!*\n\n"
             "🔒 _شما هنوز وارد سیستم نشده‌ا._\n"
@@ -27,7 +28,7 @@ def register(bot):
             bot.send_message(message.chat.id, f"✅ {response_text}")
             user = get_current_user(bale_id)
             if user:
-                check_role(message, user)
+                check_role(message, user,bot)
         else:
             error_text = (
                 f"❌ *خطا در احراز هویت:*\n"
@@ -39,16 +40,16 @@ def register(bot):
 
             bot.register_next_step_handler(msg, process_auth_code)
 
-    def check_role(message, user):
-        if user["role"] == "soldier":
-            bot.send_message(
+def check_role(message, user,bot):
+    if user["role"] == "soldier":
+        bot.send_message(
                 message.chat.id,
                 "🛡 <b>سرباز عزیز، خوش آمدید!</b>\n\n🗓 <i>پنل انتخاب شیفت برای شما فعال شد.</i> لطفاً از منوی زیر استفاده کنید:",
                 reply_markup=soldier_panel(),
                 parse_mode="HTML"
             )
-        elif user["role"] == "admin":
-            bot.send_message(
+    elif user["role"] == "admin":
+        bot.send_message(
                 message.chat.id,
                 "👑 <b>ادمین گرامی، خیلی خوش آمدید!</b>\n\n⚙️ <i>پنل مدیریت سیستم در اختیار شماست.</i>",
                 reply_markup=admin_panel(),

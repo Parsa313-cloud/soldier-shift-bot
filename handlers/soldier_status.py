@@ -5,6 +5,7 @@ from database.db_operations import get_user_by_bale_id
 def register(bot):
     @bot.message_handler(func=lambda message: message.text == CALLBACK_DICTIONARY["My Status"])
     def my_status(message):
+
         user = get_user_by_bale_id(message.chat.id)
         if not user:
             bot.send_message(message.chat.id, "❌ <b>خطا:</b> اطلاعات شما در سیستم یافت نشد.", parse_mode='HTML')

@@ -5,8 +5,10 @@ from menu_handlers.calendars import day_reservations_menu
 
 
 def register(bot):
+
     @bot.message_handler(func=lambda message: message.text in CALLBACK_DICTIONARY["delete shift"])
     def delete_shift_reserved(message):
+
         user_data = get_user_by_bale_id(message.chat.id)
         if user_data is None:
             bot.send_message(

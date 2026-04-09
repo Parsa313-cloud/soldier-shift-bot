@@ -15,7 +15,8 @@ def soldier_panel():
     my_account = KeyboardButton("وضعیت من ℹ️")
     booking_shifts = KeyboardButton("انتخاب شیفت")
     my_shifts = KeyboardButton("مشاهده شیفت های من")
-    markup.add(my_account,booking_shifts )
-    markup.add(my_shifts)
+    delete_shift = KeyboardButton("حذف شیفت")
+    markup.add(my_account,booking_shifts)
+    markup.add(my_shifts,delete_shift)
     return markup
 

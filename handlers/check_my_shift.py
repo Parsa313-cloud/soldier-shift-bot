@@ -4,6 +4,8 @@ from database.db_operations import get_current_user
 def register(bot):
     @bot.message_handler(func=lambda message: message.text == CALLBACK_DICTIONARY["See My Shifts"])
     def my_status(message):
+
+
         #check if soldier has set any shift
         user = get_current_user(message.from_user.id)
         if user is None:
