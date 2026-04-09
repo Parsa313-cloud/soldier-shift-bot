@@ -3,7 +3,11 @@ import flask
 from flask import Flask
 from core.module_loader import load_modules
 import telebot
+from init_db import populate_database
+from database.local_db import load_data_on_startup
 
+populate_database()
+load_data_on_startup()
 bot =get_bot()
 
 

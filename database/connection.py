@@ -1,10 +1,11 @@
 import mysql.connector
 
 DB_CONFIG = {
-    "host": "localhost",
+    "host": "185.126.10.222",
+    "port": 32040,
     "user": "root",
-    "password": "your_password",
-    "database": "your_database_name",
+    "password": "glxtBnBUJUKLuv17ap3c",
+    "database": "testtib_db",
 }
 
 def get_connection():

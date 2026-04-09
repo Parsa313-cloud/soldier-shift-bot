@@ -21,7 +21,7 @@ def load_data_on_startup():
 
     try:
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT auth_code, shift, bale_id, max_shifts FROM users WHERE shifts IS NOT NULL")
+        cursor.execute("SELECT full_name,auth_code, shift, bale_id, max_shifts FROM users")
         all_rows = cursor.fetchall()
         for row in all_rows:
             auth_code = row["auth_code"]

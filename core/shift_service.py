@@ -106,8 +106,4 @@ def search_soldier_shift(auth_code):
         return user_shifts_cache.get(auth_code, []).copy()
 
 
-def get_max_soldier_shift(bale_id):
-    user = get_user_by_bale_id(bale_id)
-    if not user:
-        return 0
-    return user.get("max_shifts", 0)
+

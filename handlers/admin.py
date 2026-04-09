@@ -16,7 +16,7 @@ def register(bot):
             user = get_user_by_bale_id(message.from_user.id)
             bot.send_message(
                 message.chat.id,
-                f"👤 اطلاعات حساب کاربری شما:\n\n🔸 نام و نام خانوادگی: {user.full_name}\n🔑 کد احراز هویت: {user.auth_code}"
+                f"👤 اطلاعات حساب کاربری شما:\n\n🔸 نام و نام خانوادگی: {user['full_name']}\n🔑 کد احراز هویت: {user['auth_code']}"
             )
 
         elif message.text == ADMIN_DICTIONARY["all_shifts"]:
@@ -46,7 +46,7 @@ def register(bot):
         elif message.text == ADMIN_DICTIONARY["see_exel"]:
             bot.send_message(
                 message.chat.id,"در حال درست کردن فایل اکسل رزرو شیفت ها..." )
-            bot.send_chat_action(message.chat.id, 'upload_document')
+            bot.send_chat_action(message.chat.id, 'typing')
 
             try:
                 excel_path = generate_shifts_excel()

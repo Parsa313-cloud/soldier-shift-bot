@@ -1,14 +1,9 @@
 
-from handlers import check_login,auth,soldier_status,check_my_shift,shift_choosing
+from handlers import admin,auth_handlers,check_my_shift,delete_shift,shift_choosing,soldier_status
 
 
 def load_modules(bot):
-    module_lists=[CheckLogin,
-                  SoldierStatus,CheckMyShift,ShiftChoosing,
-
-
-
-    auth]
+    module_lists=[auth_handlers,admin,check_my_shift,delete_shift,shift_choosing,soldier_status]
 
     for module in module_lists:
         module.register(bot)

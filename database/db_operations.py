@@ -1,9 +1,16 @@
-from core.shift_service import get_max_soldier_shift
+
+
 from database.connection import get_connection
 import mysql.connector
 
 from database.local_db import logged_in_users_cache
 
+
+def get_max_soldier_shift(bale_id):
+    user = get_user_by_bale_id(bale_id)
+    if not user:
+        return 0
+    return user.get("max_shifts", 0)
 
 # ok with mySQL
 def get_user_by_bale_id(bale_id):
