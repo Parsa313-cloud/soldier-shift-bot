@@ -19,14 +19,12 @@ def register(bot):
             auth_code = user_data.get("auth_code")
             reservations = soldier_reservations(auth_code)
 
-            if not reservations:
-                bot.send_message(
-                    message.chat.id,
-                )
+            if len(reservations)==0:
                 bot.send_message(
                     message.chat.id,
                     "⚠️ شما در حال حاضر هیچ شیفتی رزرو نکرده‌اید."
                 )
+
             else:
                 markup = day_reservations_menu(reservations)
 

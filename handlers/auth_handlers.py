@@ -43,14 +43,17 @@ def register(bot):
 def check_role(message, user,bot):
     if user["role"] == "soldier":
         bot.send_message(
-                message.chat.id,
-                "🛡 <b>سرباز عزیز، خوش آمدید!</b>\n\n🗓 <i>پنل انتخاب شیفت برای شما فعال شد.</i> لطفاً از منوی زیر استفاده کنید:",
-                reply_markup=soldier_panel()
-            )
+            message.chat.id,
+            "🛡 *سرباز عزیز، خوش آمدید!*\n\n🗓 _پنل انتخاب شیفت برای شما فعال شد._ لطفاً از منوی زیر استفاده کنید:",
+            reply_markup=soldier_panel(),
+            parse_mode="Markdown"
+        )
+
     elif user["role"] == "admin":
         bot.send_message(
-                message.chat.id,
-                "👑 <b>ادمین گرامی، خیلی خوش آمدید!</b>\n\n⚙️ <i>پنل مدیریت سیستم در اختیار شماست.</i>",
-                reply_markup=admin_panel(),
-                parse_mode="HTML"
-            )
+            message.chat.id,
+            "👑 *ادمین گرامی، خیلی خوش آمدید!*\n\n⚙️ _پنل مدیریت سیستم در اختیار شماست._",
+            reply_markup=admin_panel(),
+            parse_mode="Markdown"
+        )
+
