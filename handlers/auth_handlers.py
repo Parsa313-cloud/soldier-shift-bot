@@ -45,8 +45,7 @@ def check_role(message, user,bot):
         bot.send_message(
                 message.chat.id,
                 "🛡 <b>سرباز عزیز، خوش آمدید!</b>\n\n🗓 <i>پنل انتخاب شیفت برای شما فعال شد.</i> لطفاً از منوی زیر استفاده کنید:",
-                reply_markup=soldier_panel(),
-                parse_mode="HTML"
+                reply_markup=soldier_panel()
             )
     elif user["role"] == "admin":
         bot.send_message(
