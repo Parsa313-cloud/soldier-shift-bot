@@ -1,6 +1,5 @@
 from core.bot_instant import logger,get_bot
 import flask
-from flask import Flask
 from core.module_loader import load_modules
 import telebot
 from core.bot_instant import logger
@@ -8,7 +7,9 @@ import logging
 from init_db import populate_database
 from database.local_db import load_data_on_startup
 from database.db_operations import reset_db
-logger.setLevel(logging.DEBUG)
+import os
+from flask import Flask, request
+logger.setLevel(logging.INFO)
 
 
 
@@ -25,7 +26,6 @@ load_modules(bot)
 
 
 # bot.infinity_polling()
-
 app = Flask(__name__)
 @app.route("/", methods=["GET"])
 def home():
@@ -39,6 +39,7 @@ def webhook():
     except Exception as e:
         print("Webhook error:", e)
     return "OK", 200
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     print(f"Running on PORT = {port}")
