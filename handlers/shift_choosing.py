@@ -9,11 +9,12 @@ def register(bot):
     def shift_reserve(message):
 
         max_shifts = get_max_soldier_shift(message.chat.id)
-
+        user = get_user_by_bale_id(message.chat.id)
+        auth_code = user.get("auth_code")
         bot.send_message(
             message.chat.id,
             f"سقف مجاز شما: {max_shifts} شیفت\n\nبرای انتخاب رزرو روی روز مورد نظر خود بزنید. روزهایی که 🔒 را دارند شیفت‌ها در آن روز پر شده است.",
-            reply_markup=days_status_menu(message.from_user.id)
+            reply_markup=days_status_menu(auth_code),
         )
     @bot.callback_query_handler(func=lambda call: call.data.startswith("day_"))
     def reserve_day(call):

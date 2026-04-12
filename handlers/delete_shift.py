@@ -30,7 +30,7 @@ def register(bot):
 
                 bot.send_message(
                     message.chat.id,
-                    "🗓 **لیست شیفت‌های رزرو شده‌ی شما:**\n\n👇 لطفاً برای لغو شیفت، روی روز مورد نظر کلیک کنید:",
+                    "🗓 **لیست شیفت‌های رزرو شده‌ی :**\n\n👇 لطفاً برای لغو شیفت، روی روز مورد نظر کلیک کنید:",
                     reply_markup=markup,
                     parse_mode="Markdown"
                 )

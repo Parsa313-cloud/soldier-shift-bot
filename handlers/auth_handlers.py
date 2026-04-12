@@ -1,7 +1,7 @@
 from database.db_operations import get_current_user, authenticate_soldier
 from menu_handlers.admin_menus import admin_panel
 from menu_handlers.keyboards_manage import soldier_panel
-import html
+
 
 def register(bot):
 

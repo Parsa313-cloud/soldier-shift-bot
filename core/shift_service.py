@@ -1,11 +1,11 @@
 import threading
 
 from config import MAX_CAPACITY_PER_DAY
-from database.db_operations import get_user_by_bale_id,logged_in_users_cache
 from database.local_db import day_reservations_cache, user_shifts_cache, update_user_shifts_in_db, \
     user_max_shifts_cache, user_names_cache
-from core.bot_instant import logger
+from database.db_operations import log_out_feature
 shift_lock = threading.Lock()
+log_lock = threading.Lock()
 
 def is_day_full(day):
     if day_reservations_cache.get(int(day)):
@@ -27,7 +27,7 @@ def reserve_shift_for_soldier(auth_code, day):
         max_allowed = user_max_shifts_cache.get(auth_code, 0)
         user_shifts = user_shifts_cache.get(auth_code, [])
         if len(user_shifts) >= max_allowed:
-            return False, f"⚠️ سقف شیفت‌های شما در این ماه ({max_allowed} شیفت) پر شده است."
+            return False, f"⚠️ سقف نگهبانی شما در این ماه ({max_allowed} شیفت) پر شده است."
 
         if is_day_full(day):
             return False, "❌ ظرفیت این روز تکمیل شده است."
@@ -56,7 +56,7 @@ def delete_shift_for_soldier(auth_code, day):
     with shift_lock:
         user_shifts = user_shifts_cache.get(auth_code)
         if int(day) not in user_shifts:
-            return False, "⚠️ شما در این روز شیفتی ندارید."
+            return False, "⚠️ شما در این روز نگهبانی ندارید."
 
         new_shifts = user_shifts.copy()
         day= int(day)
@@ -66,9 +66,9 @@ def delete_shift_for_soldier(auth_code, day):
             user_shifts_cache[auth_code] = new_shifts
             if day in day_reservations_cache and auth_code in day_reservations_cache[day]:
                 day_reservations_cache[day].remove(auth_code)
-            return True, f"✅ شیفت شما در روز {day} با موفقیت لغو شد."
+            return True, f"✅ نگهبانی شما در روز {day} با موفقیت لغو شد."
         else:
-            return False, "❌ خطای سیستمی! امکان لغو شیفت در حال حاضر وجود ندارد."
+            return False, "❌ خطای سیستمی! امکان لغو نگهبانی در حال حاضر وجود ندارد."
 
 
 def get_all_shifts():
@@ -106,4 +106,7 @@ def search_soldier_shift(auth_code):
         return user_shifts_cache.get(auth_code, []).copy()
 
 
-
+def log_out_account_service(bale_id):
+    with log_lock:
+        result , message_response = log_out_feature(bale_id)
+        return result ,message_response

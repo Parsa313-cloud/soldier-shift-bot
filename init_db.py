@@ -18,12 +18,23 @@ def populate_database():
             return
 
         users_to_insert = [
-            ("Mohammad Rezaei", "A1X9p", "admin", 0),
-            ("Ali Ahmadi", "B2m7K", "soldier", 3),
-            ("Hossein Karimi", "C8v3N", "soldier", 4),
-            ("Amir Hosseini", "D4q9L", "soldier", 5),
-            ("Reza Moradi", "E12tg", "soldier", 3),
-            ("Mehdi Jafari", "F5w8R", "soldier", 4),
+            ("علی افشاری", "008500", "admin", 0),
+            ("محمد بهرامیان", "12419", "soldier", 3),
+            ("پویا هارونی", "2207", "soldier", 4),
+            ("علی عبدالهی", "17530", "soldier", 4),
+            ("فردین حیدری", "21107", "soldier", 5),
+            ("متین علیخانی", "29999", "soldier", 4),
+            ("متین باقری", "29110", "soldier", 4),
+            ("عرفان قنواتی", "15732", "soldier", 4),
+            ("سینا کرمی", "12959", "soldier", 4),
+            ("مهدی کرمی", "76580", "soldier", 4),
+            ("سینا شجاعی", "12100", "soldier", 4),
+            ("پویا ایدر", "08590", "soldier", 4),
+            ("محمدرضا قنبری", "11190", "soldier", 4),
+            ("محمد مهدی تقوی", "11119", "soldier", 4),
+            ("مهدی رضایی", "02006", "soldier", 4),
+            ("علی معصوم زاده", "001144", "soldier", 4),
+            ("نگهبان", "negahban", "soldier", 200),
         ]
 
         insert_query = """

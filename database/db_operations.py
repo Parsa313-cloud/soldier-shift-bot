@@ -145,3 +145,34 @@ def reset_db():
         print("eheeeeeeb")
 
 
+def log_out_feature(bale_id):
+    cursor = None
+    conn = None
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT user FROM users WHERE bale_id = %s ", (bale_id,))
+
+        if cursor.fetchone() is not None:
+            cursor.execute("UPDATE users SET bale_id = NULL WHERE bale_id = %s", (bale_id,))
+            conn.commit()
+            if bale_id in logged_in_users_cache:
+                logged_in_users_cache.pop(bale_id)
+            return True, "خروج شما با موفقیت انجام شد! ✨ به امید دیدار مجدد 👋"
+
+        else:
+            return False, "شما در حال حاضر وارد سیستم نشده‌اید یا قبلاً خارج شده‌اید! 🤷‍♂️❗🍂"
+
+    except Exception:
+
+        return False, "یه مشکلی تو فرآیند خروج پیش اومد 😢🛠️ لطفاً دوباره تلاش کن."
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
+
+
