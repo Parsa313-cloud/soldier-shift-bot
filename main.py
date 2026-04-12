@@ -17,6 +17,7 @@ populate_database()
 load_data_on_startup()
 bot =get_bot()
 
+
 load_modules(bot)
 
 

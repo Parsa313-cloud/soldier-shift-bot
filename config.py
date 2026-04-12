@@ -3,19 +3,19 @@
 API_TOKEN = "102244147:l5JHFu1Gr9aED-hyEt88DTuvG7SXIeph_HY"
 API_URL="https://tapi.bale.ai/bot{0}/{1}"
 
-MAX_CAPACITY_PER_DAY=2
+MAX_CAPACITY_PER_DAY=4
 CALLBACK_DICTIONARY={
     "choose shift":"انتخاب شیفت",
     "delete shift":"حذف شیفت",
     "My Status": "وضعیت من ℹ️",
     "See My Shifts":"مشاهده شیفت های من",
-    "exit from account":"خروج از حساب کاربری"
+    "logout_account":"خارج شدن از حساب کاربری"
 }
 ADMIN_DICTIONARY={
     "my_account":"وضعیت من ℹ️",
     "all_shifts":"مشاهده تمام شیفت ها",
     "search_shifts":"جست و جوی شیفت ها",
-    "see_exel":"📥 دریافت فایل اکسل شیفت‌ها"
+    "see_exel":"📥 دریافت فایل اکسل شیفت‌ها",
 }
 users = [{
         "id": 1,

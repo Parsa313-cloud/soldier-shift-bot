@@ -144,25 +144,35 @@ def reset_db():
     except mysql.connector.errors.IntegrityError:
         print("eheeeeeeb")
 
-def exit_from_acc(auth_code, bale_id):
+
+def log_out_feature(bale_id):
     cursor = None
-    conn = get_connection()
+    conn = None
     try:
-        cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT full_name, bale_id FROM users WHERE auth_code = %s", (auth_code,))
-        user = cursor.fetchone()
-        if user is None:
-            return False, "❌ کد احراز هویت نامعتبر است. مجددا تلاش نمایید. "
-        if user["bale_id"] == bale_id:
-            cursor.execute(
-                "UPDATE users SET bale_id = %s WHERE auth_code = %s",
-                ("?",auth_code)
-            )
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT user FROM users WHERE bale_id = %s ", (bale_id,))
+
+        if cursor.fetchone() is not None:
+            cursor.execute("UPDATE users SET bale_id = NULL WHERE bale_id = %s", (bale_id,))
             conn.commit()
-            return True, f"با موفقیت از حساب کاربری خود، خارج شدید {user['full_name']}."
-        return False, f"خروج از حساب کاربری با خطا رو به رو شد."
+            if bale_id in logged_in_users_cache:
+                logged_in_users_cache.pop(bale_id)
+            return True, "خروج شما با موفقیت انجام شد! ✨ به امید دیدار مجدد 👋"
+
+        else:
+            return False, "شما در حال حاضر وارد سیستم نشده‌اید یا قبلاً خارج شده‌اید! 🤷‍♂️❗🍂"
+
+    except Exception:
+
+        return False, "یه مشکلی تو فرآیند خروج پیش اومد 😢🛠️ لطفاً دوباره تلاش کن."
+
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
 
 

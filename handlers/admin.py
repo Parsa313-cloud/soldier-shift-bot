@@ -1,7 +1,7 @@
 from core.shift_service import get_all_shifts, search_day_shift, search_soldier_shift
 from database.db_operations import get_user_by_bale_id
 from database.local_db import user_names_cache
-from menu_handlers.admin_menus import all_soldier_names, search_panel
+from menu_handlers.admin_menus import all_soldier_names, search_panel, change_shift
 from utils.decorators import admin_required
 from config import ADMIN_DICTIONARY
 from utils.excel_generator import generate_shifts_excel
@@ -95,7 +95,7 @@ def register(bot):
         else:
             msg_text = f"⚠️ سرباز **{full_name}** تا این لحظه هیچ شیفتی در این ماه رزرو نکرده است."
 
-        bot.edit_message_text(msg_text, call.message.chat.id, loading_msg.message_id)
+        bot.edit_message_text(msg_text, call.message.chat.id, loading_msg.message_id , reply_markup=change_shift(auth_code_chosen))
 
     def search_day_handler(message):
         if not message.text or not message.text.isdigit():

@@ -1,12 +1,18 @@
 import mysql.connector
 
 DB_CONFIG = {
-    "host": "test-snf-service",
+    "host": "dbnewsoldier-pcu-service",
     "user": "root",
-    "password": "pDmH2EOJldn3yuLgNs5t",
-    "database": "usermgl_db",
+    "password": "tnQy7tG35bRCwpUoDWri",
+    "database": "dbnewsolyqv_db",
 }
 
+
 def get_connection():
-    conn = mysql.connector.connect(**DB_CONFIG)
-    return conn
+    try:
+        conn = mysql.connector.connect(**DB_CONFIG)
+        print("Connected Successfully!")
+        return conn
+    except Exception as e:
+        print(f"Error connecting to DB: {e}")
+        raise

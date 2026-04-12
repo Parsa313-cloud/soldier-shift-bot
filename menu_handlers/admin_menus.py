@@ -22,5 +22,13 @@ def search_panel():
 def all_soldier_names():
     markup = InlineKeyboardMarkup()
     for auth_code, full_name in user_names_cache.items():
-        markup.add(InlineKeyboardButton(full_name, callback_data=f"soldier_{auth_code}"))
+        if auth_code is not "negahban":
+            markup.add(InlineKeyboardButton(full_name, callback_data=f"soldier_{auth_code}"))
+    return markup
+
+def change_shift(auth_code):
+    markup = InlineKeyboardMarkup()
+    admin_add_shift = InlineKeyboardButton("اضافه کردن شیفت", callback_data="admin_add_shift_".join(auth_code))
+    admin_delete_shift = InlineKeyboardButton("حذف شیفت" , callback_data="admin_delete_shift".join(auth_code))
+    markup.add(admin_add_shift, admin_delete_shift)
     return markup
