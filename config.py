@@ -8,7 +8,8 @@ CALLBACK_DICTIONARY={
     "choose shift":"انتخاب شیفت",
     "delete shift":"حذف شیفت",
     "My Status": "وضعیت من ℹ️",
-    "See My Shifts":"مشاهده شیفت های من"
+    "See My Shifts":"مشاهده شیفت های من",
+    "exit from account":"خروج از حساب کاربری"
 }
 ADMIN_DICTIONARY={
     "my_account":"وضعیت من ℹ️",

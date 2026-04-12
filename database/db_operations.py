@@ -144,4 +144,25 @@ def reset_db():
     except mysql.connector.errors.IntegrityError:
         print("eheeeeeeb")
 
+def exit_from_acc(auth_code, bale_id):
+    cursor = None
+    conn = get_connection()
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT full_name, bale_id FROM users WHERE auth_code = %s", (auth_code,))
+        user = cursor.fetchone()
+        if user is None:
+            return False, "❌ کد احراز هویت نامعتبر است. مجددا تلاش نمایید. "
+        if user["bale_id"] == bale_id:
+            cursor.execute(
+                "UPDATE users SET bale_id = %s WHERE auth_code = %s",
+                ("?",auth_code)
+            )
+            conn.commit()
+            return True, f"با موفقیت از حساب کاربری خود، خارج شدید {user['full_name']}."
+        return False, f"خروج از حساب کاربری با خطا رو به رو شد."
+    finally:
+        cursor.close()
+        conn.close()
+
 

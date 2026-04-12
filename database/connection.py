@@ -1,9 +1,9 @@
 import mysql.connector
 
 DB_CONFIG = {
-    "host": "user-uhe-service",
+    "host": "test-snf-service",
     "user": "root",
-    "password": "lQnSwiLeF5IKsRtf1b9w",
+    "password": "pDmH2EOJldn3yuLgNs5t",
     "database": "usermgl_db",
 }
 
