@@ -9,7 +9,7 @@ CALLBACK_DICTIONARY={
     "delete shift":"حذف شیفت",
     "My Status": "وضعیت من ℹ️",
     "See My Shifts":"مشاهده شیفت های من",
-    "logout_account":"خارج شدن از حساب کاربری"
+    "logout_account":"خروج از حساب کاربری"
 }
 ADMIN_DICTIONARY={
     "my_account":"وضعیت من ℹ️",

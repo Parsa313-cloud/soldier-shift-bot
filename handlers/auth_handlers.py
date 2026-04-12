@@ -41,6 +41,10 @@ def register(bot):
             bot.register_next_step_handler(msg, process_auth_code)
 
 def check_role(message, user,bot):
+    if message.content_type!="text":
+        bot.send_message(message.chat.id,"لطفا کد احراز هویت خود را وارد کنید.")
+        bot.register_next_step_handler(msg, process_auth_code)
+        return
     if user["role"] == "soldier":
         bot.send_message(
             message.chat.id,

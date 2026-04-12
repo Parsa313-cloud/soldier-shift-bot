@@ -151,7 +151,7 @@ def log_out_feature(bale_id):
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT user FROM users WHERE bale_id = %s ", (bale_id,))
+        cursor.execute("SELECT * FROM users WHERE bale_id = %s ", (bale_id,))
 
         if cursor.fetchone() is not None:
             cursor.execute("UPDATE users SET bale_id = NULL WHERE bale_id = %s", (bale_id,))
@@ -163,8 +163,8 @@ def log_out_feature(bale_id):
         else:
             return False, "شما در حال حاضر وارد سیستم نشده‌اید یا قبلاً خارج شده‌اید! 🤷‍♂️❗🍂"
 
-    except Exception:
-
+    except Exception as e:
+        print(e)
         return False, "یه مشکلی تو فرآیند خروج پیش اومد 😢🛠️ لطفاً دوباره تلاش کن."
 
     finally:

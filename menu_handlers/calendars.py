@@ -11,9 +11,25 @@ def days_status_menu(auth_code):
         else:
             btn_text = f"🔒 {day}"
         btn_callback = f"day_{day}"
-        if int(day) in user_shifts_cache.get(auth_code):
+        if int(day) in user_shifts_cache.get(auth_code, []):
             btn_text+="✅"
         buttons.append(InlineKeyboardButton(text=btn_text, callback_data=btn_callback))
+
+    markup.add(*buttons)
+    return markup
+
+def days_status_menu_admin(auth_code):
+    markup = InlineKeyboardMarkup(row_width=5)
+    buttons = []
+    for day in range(1, 32):
+        if not is_day_full(day):
+            btn_text = f"{day}"
+        else:
+            btn_text = f"🔒 {day}"
+        btn_callback = f"change_day_{day}"
+        if int(day) in user_shifts_cache.get(auth_code, []):
+            btn_text+="✅"
+        buttons.append(InlineKeyboardButton(text=btn_text, callback_data=f"{btn_callback}_{auth_code}"))
 
     markup.add(*buttons)
     return markup
@@ -23,5 +39,11 @@ def day_reservations_menu(days):
     markup = InlineKeyboardMarkup()
     for day in days:
         markup.add(InlineKeyboardButton(f"روز {day}", callback_data=f"delete_{day}"))
+    return markup
+
+def admin_day_reservations_menu(days,auth_code):
+    markup = InlineKeyboardMarkup()
+    for day in days:
+        markup.add(InlineKeyboardButton(f"روز {day}", callback_data=f"del_admin_{day}_{auth_code}"))
     return markup
 

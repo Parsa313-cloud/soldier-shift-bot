@@ -54,7 +54,7 @@ def reserve_shift_for_soldier(auth_code, day):
 
 def delete_shift_for_soldier(auth_code, day):
     with shift_lock:
-        user_shifts = user_shifts_cache.get(auth_code)
+        user_shifts = user_shifts_cache.get(auth_code,[])
         if int(day) not in user_shifts:
             return False, "⚠️ شما در این روز نگهبانی ندارید."
 

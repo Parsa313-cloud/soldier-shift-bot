@@ -28,7 +28,7 @@ def all_soldier_names():
 
 def change_shift(auth_code):
     markup = InlineKeyboardMarkup()
-    admin_add_shift = InlineKeyboardButton("اضافه کردن شیفت", callback_data="admin_add_shift_".join(auth_code))
-    admin_delete_shift = InlineKeyboardButton("حذف شیفت" , callback_data="admin_delete_shift".join(auth_code))
+    admin_add_shift = InlineKeyboardButton("اضافه کردن شیفت", callback_data=f"admin_add_shift_{auth_code}")
+    admin_delete_shift = InlineKeyboardButton("حذف شیفت" , callback_data=f"admin_delete_shift_{auth_code}")
     markup.add(admin_add_shift, admin_delete_shift)
     return markup

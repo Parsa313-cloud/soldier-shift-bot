@@ -8,7 +8,6 @@ def register(bot):
 
     @bot.message_handler(func=lambda message: message.text in CALLBACK_DICTIONARY["delete shift"])
     def delete_shift_reserved(message):
-
         user_data = get_user_by_bale_id(message.chat.id)
         if user_data is None:
             bot.send_message(
@@ -18,16 +17,13 @@ def register(bot):
         else:
             auth_code = user_data.get("auth_code")
             reservations = soldier_reservations(auth_code)
-
             if len(reservations)==0:
                 bot.send_message(
                     message.chat.id,
                     "⚠️ شما در حال حاضر هیچ شیفتی رزرو نکرده‌اید."
                 )
-
             else:
                 markup = day_reservations_menu(reservations)
-
                 bot.send_message(
                     message.chat.id,
                     "🗓 **لیست شیفت‌های رزرو شده‌ی :**\n\n👇 لطفاً برای لغو شیفت، روی روز مورد نظر کلیک کنید:",
@@ -45,6 +41,18 @@ def register(bot):
             return
 
         auth_code = user_data.get("auth_code")
+        result, response_message = delete_shift_for_soldier(auth_code, day)
+        bot.edit_message_text(
+            text=f"✅ {response_message}",
+            chat_id=call.message.chat.id,
+            message_id=call.message.message_id
+        )
+
+    @bot.callback_query_handler(func=lambda call: call.data.startswith("del_admin"))
+    def check_delete_reservation(call):
+
+        day = call.data.split("_")[2]
+        auth_code = call.data.split("_")[3]
         result, response_message = delete_shift_for_soldier(auth_code, day)
         bot.edit_message_text(
             text=f"✅ {response_message}",
