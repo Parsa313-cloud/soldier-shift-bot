@@ -32,7 +32,7 @@ def reserve_shift_for_soldier(auth_code, day):
         if is_day_full(day):
             return False, "❌ ظرفیت این روز تکمیل شده است."
 
-        if day in user_shifts:
+        if day in user_shifts and auth_code!="negahban":
             return False, "⚠️ شما قبلاً این روز را رزرو کرده‌اید."
 
         new_shifts = user_shifts.copy()

@@ -1,6 +1,6 @@
 from telebot.types import InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton
 
-from database.local_db import user_names_cache
+from database.local_db import user_names_cache,user_role
 
 
 def admin_panel():
@@ -9,7 +9,10 @@ def admin_panel():
     all_shifts = KeyboardButton("مشاهده تمام شیفت ها")
     see_exel = KeyboardButton("📥 دریافت فایل اکسل شیفت‌ها")
     search_shifts = KeyboardButton("جست و جوی شیفت ها")
-    markup.add(my_account, all_shifts, search_shifts , see_exel)
+    add_soldier= KeyboardButton("اضافه کردن نگهبان")
+    remove_soldier= KeyboardButton("حذف کردن نگهبان")
+    markup.add(my_account, all_shifts, search_shifts )
+    markup.add(see_exel,add_soldier,remove_soldier)
     return markup
 
 def search_panel():
@@ -22,7 +25,7 @@ def search_panel():
 def all_soldier_names():
     markup = InlineKeyboardMarkup()
     for auth_code, full_name in user_names_cache.items():
-        if auth_code is not "negahban":
+        if auth_code!= "negahban" and user_role[auth_code]!="admin":
             markup.add(InlineKeyboardButton(full_name, callback_data=f"soldier_{auth_code}"))
     return markup
 

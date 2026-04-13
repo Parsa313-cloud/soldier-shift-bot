@@ -9,13 +9,16 @@ CALLBACK_DICTIONARY={
     "delete shift":"حذف شیفت",
     "My Status": "وضعیت من ℹ️",
     "See My Shifts":"مشاهده شیفت های من",
-    "logout_account":"خروج از حساب کاربری"
+    "logout_account":"خروج از حساب کاربری",
+
 }
 ADMIN_DICTIONARY={
     "my_account":"وضعیت من ℹ️",
     "all_shifts":"مشاهده تمام شیفت ها",
     "search_shifts":"جست و جوی شیفت ها",
     "see_exel":"📥 دریافت فایل اکسل شیفت‌ها",
+    "add_negahban": "اضافه کردن نگهبان",
+    "remove_negahban":"حذف کردن نگهبان"
 }
 users = [{
         "id": 1,
